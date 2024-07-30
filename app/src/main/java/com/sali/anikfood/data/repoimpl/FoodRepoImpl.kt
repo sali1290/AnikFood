@@ -9,6 +9,10 @@ class FoodRepoImpl @Inject constructor(): FoodRepo {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getUserFavoriteFoods(foodIds: List<Int>): List<Food> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun addFood(food: Food) {
         TODO("Not yet implemented")
     }

@@ -6,6 +6,8 @@ interface FoodRepo {
 
     suspend fun getAllFoods(): List<Food>
 
+    suspend fun getUserFavoriteFoods(foodIds: List<Int>): List<Food>
+
     suspend fun addFood(food: Food)
 
     suspend fun deleteFood(food: Food)

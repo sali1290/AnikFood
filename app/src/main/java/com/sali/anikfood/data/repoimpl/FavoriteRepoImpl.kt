@@ -4,8 +4,9 @@ import com.sali.anikfood.data.entity.Favorite
 import com.sali.anikfood.domain.repo.FavoriteRepo
 import javax.inject.Inject
 
-class FavoriteRepoImpl @Inject constructor(): FavoriteRepo {
-    override suspend fun getAllFavorites(): List<Favorite> {
+class FavoriteRepoImpl @Inject constructor() : FavoriteRepo {
+
+    override suspend fun getUserFavorites(userId: Int): List<Favorite> {
         TODO("Not yet implemented")
     }
 
@@ -13,11 +14,8 @@ class FavoriteRepoImpl @Inject constructor(): FavoriteRepo {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateFavorite(favorite: Favorite) {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun deleteFavorite(favorite: Favorite) {
         TODO("Not yet implemented")
     }
+
 }
