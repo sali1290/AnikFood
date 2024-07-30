@@ -1,4 +1,8 @@
 package com.sali.anikfood.domain.usecase.user
 
-class GetAllUsers {
+import com.sali.anikfood.domain.repo.UserRepo
+import javax.inject.Inject
+
+class GetAllUsers @Inject constructor(private val userRepo: UserRepo){
+    suspend fun invoke() = userRepo.getAllUsers()
 }
