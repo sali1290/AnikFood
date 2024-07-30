@@ -1,4 +1,4 @@
-package com.sali.anikfood.ui.theme
+package com.sali.anikfood.app.theme
 
 import androidx.compose.ui.graphics.Color
 

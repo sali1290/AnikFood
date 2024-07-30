@@ -1,4 +1,4 @@
-package com.sali.anikfood
+package com.sali.anikfood.app.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.sali.anikfood.ui.theme.AnikFoodTheme
+import com.sali.anikfood.app.theme.AnikFoodTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
