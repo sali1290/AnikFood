@@ -11,13 +11,13 @@ import com.sali.anikfood.data.entity.Favorite
 interface FavoriteDao {
 
     @Insert
-    fun addFood(favorite: Favorite)
+    fun addFavorite(favorite: Favorite)
 
     @Update
-    fun updateUser(favorite: Favorite)
+    fun updateFavorite(favorite: Favorite)
 
     @Query("SELECT * FROM favorites")
-    fun getAllFoods(): List<Favorite>
+    fun getAllFavorites(): List<Favorite>
 
     @Delete
     fun deleteFavorite(favorite: Favorite)

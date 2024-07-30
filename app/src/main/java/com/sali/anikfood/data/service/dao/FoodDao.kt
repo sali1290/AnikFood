@@ -14,7 +14,7 @@ interface FoodDao {
     fun addFood(food: Food)
 
     @Update
-    fun updateUser(food: Food)
+    fun updateFood(food: Food)
 
     @Query("SELECT * FROM foods")
     fun getAllFoods(): List<Food>
