@@ -10,14 +10,14 @@ import com.sali.anikfood.data.entity.Food
 @Dao
 interface FoodDao {
 
-    @Insert
-    fun addFood(food: Food)
-
-    @Update
-    fun updateFood(food: Food)
-
     @Query("SELECT * FROM foods")
     fun getAllFoods(): List<Food>
+
+    @Query("SELECT * FROM foods WHERE food_id IN (:foodIds)")
+    fun getFoodsByIds(foodIds: List<Int>): List<Food>
+
+    @Insert
+    fun addFood(food: Food)
 
     @Delete
     fun deleteFood(food: Food)

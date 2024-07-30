@@ -13,9 +13,6 @@ interface UserDao {
     @Insert
     fun addUser(user: User)
 
-    @Update
-    fun updateUser(user: User)
-
     @Query("SELECT * FROM users")
     fun getAllUsers(): List<User>
 
