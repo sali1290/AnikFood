@@ -14,7 +14,7 @@ interface FavoriteDao {
     fun addFavorite(favorite: Favorite)
 
     @Query("SELECT * FROM favorites WHERE user_id LIKE :userId LIMIT 1")
-    fun getAllFavorites(userId: Int): List<Favorite>
+    fun getUserFavorites(userId: Int): List<Favorite>
 
     @Delete
     fun deleteFavorite(favorite: Favorite)
