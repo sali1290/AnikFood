@@ -1,23 +1,24 @@
 package com.sali.anikfood.data.repoimpl
 
 import com.sali.anikfood.data.entity.Food
+import com.sali.anikfood.data.service.dao.FoodDao
 import com.sali.anikfood.domain.repo.FoodRepo
 import javax.inject.Inject
 
-class FoodRepoImpl @Inject constructor(): FoodRepo {
+class FoodRepoImpl @Inject constructor(private val foodDao: FoodDao) : FoodRepo {
     override suspend fun getAllFoods(): List<Food> {
-        TODO("Not yet implemented")
+        return foodDao.getAllFoods()
     }
 
     override suspend fun getUserFavoriteFoods(foodIds: List<Int>): List<Food> {
-        TODO("Not yet implemented")
+        return foodDao.getFoodsByIds(foodIds)
     }
 
     override suspend fun addFood(food: Food) {
-        TODO("Not yet implemented")
+        foodDao.addFood(food)
     }
 
     override suspend fun deleteFood(food: Food) {
-        TODO("Not yet implemented")
+        foodDao.deleteFood(food)
     }
 }
