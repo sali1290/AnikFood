@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AnikFood</string>
+    <string name="save">Save</string>
+    <string name="arrow_down_or_up_icon">arrow down or up icon</string>
+    <string name="add_food">Add food</string>
+    <string name="enter_food_name">Enter food name</string>
+    <string name="enter_user_name">Enter user name</string>
+    <string name="add_user">Add user</string>
 </resources>
