@@ -18,7 +18,7 @@ fun AnikFoodNavHost(modifier: Modifier = Modifier) {
     ) {
 
         composable(route = Screen.MainScreen.route) {
-            MainScreen()
+            MainScreen(navController = navController)
         }
 
         composable(route = Screen.AddDataScreen.route) {

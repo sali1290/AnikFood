@@ -19,9 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AnikFoodTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AnikFoodNavHost(modifier = Modifier.padding(innerPadding))
-                }
+                AnikFoodNavHost()
             }
         }
     }
