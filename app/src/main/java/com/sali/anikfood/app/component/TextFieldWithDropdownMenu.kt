@@ -22,11 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sali.anikfood.R
+import com.sali.anikfood.data.entity.User
 
 @Composable
 fun TextFieldWithDropdownMenu(
-    listItems: List<String>,
-    onMenuItemClick: (String) -> Unit
+    listItems: List<User>,
+    onMenuItemClick: (Int) -> Unit
 ) {
     var selectedItem by remember { mutableStateOf("") }
     var menuExpanded by remember { mutableStateOf(false) }
@@ -56,10 +57,11 @@ fun TextFieldWithDropdownMenu(
             listItems.forEach { item ->
                 DropdownMenuItem(
                     onClick = {
-                        selectedItem = item
-                        onMenuItemClick(item)
+                        selectedItem = item.userName
+                        menuExpanded = false
+                        onMenuItemClick(item.userId)
                     },
-                    text = { Text(text = item) }
+                    text = { Text(text = item.userName) }
                 )
             }
         }

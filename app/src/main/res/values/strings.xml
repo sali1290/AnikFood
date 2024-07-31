@@ -9,4 +9,6 @@
     <string name="food">Food</string>
     <string name="delete">Delete</string>
     <string name="choose_a_user">Choose a user</string>
+    <string name="all_foods">All foods</string>
+    <string name="favorite_foods">Favorite foods</string>
 </resources>
