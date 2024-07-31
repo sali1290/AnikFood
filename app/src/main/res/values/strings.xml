@@ -6,4 +6,6 @@
     <string name="enter_food_name">Enter food name</string>
     <string name="enter_user_name">Enter user name</string>
     <string name="add_user">Add user</string>
+    <string name="food">Food</string>
+    <string name="delete">Delete</string>
 </resources>
