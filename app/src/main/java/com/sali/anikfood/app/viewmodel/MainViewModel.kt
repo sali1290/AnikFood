@@ -59,7 +59,7 @@ class MainViewModel @Inject constructor(
     }
 
     private val _allFoods = MutableStateFlow<List<FoodModel>>(emptyList())
-    val allFoods get() = _allUsers.asStateFlow()
+    val allFoods get() = _allFoods.asStateFlow()
     fun getAllFoods() = viewModelScope.launch(Dispatchers.IO) {
         _allFoods.value = getAllFoods.invoke()
     }

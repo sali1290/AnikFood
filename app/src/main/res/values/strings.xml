@@ -11,4 +11,6 @@
     <string name="choose_a_user">Choose a user</string>
     <string name="all_foods">All foods</string>
     <string name="favorite_foods">Favorite foods</string>
+    <string name="please_insert_some_foods_to_start">Please insert some foods to start</string>
+    <string name="please_choose_a_user">Please choose a user</string>
 </resources>
