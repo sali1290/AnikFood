@@ -1,13 +1,13 @@
 package com.sali.anikfood.domain.repo
 
-import com.sali.anikfood.data.entity.Favorite
+import com.sali.anikfood.domain.model.FavoriteModel
 
 interface FavoriteRepo {
 
-    suspend fun getUserFavorites(userId: Int): List<Favorite>
+    suspend fun getUserFavorites(userId: Int): List<FavoriteModel>
 
-    suspend fun addFavorite(favorite: Favorite)
+    suspend fun addFavorite(favoriteModel: FavoriteModel)
 
-    suspend fun deleteFavorite(favorite: Favorite)
+    suspend fun deleteFavorite(favoriteModel: FavoriteModel)
 
 }

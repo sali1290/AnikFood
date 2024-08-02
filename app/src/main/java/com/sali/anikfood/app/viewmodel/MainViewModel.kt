@@ -2,9 +2,9 @@ package com.sali.anikfood.app.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sali.anikfood.data.entity.Favorite
-import com.sali.anikfood.data.entity.Food
-import com.sali.anikfood.data.entity.User
+import com.sali.anikfood.domain.model.FavoriteModel
+import com.sali.anikfood.domain.model.FoodModel
+import com.sali.anikfood.domain.model.UserModel
 import com.sali.anikfood.domain.usecase.favorite.AddFavorite
 import com.sali.anikfood.domain.usecase.favorite.DeleteFavorite
 import com.sali.anikfood.domain.usecase.favorite.GetUserFavorites
@@ -34,49 +34,49 @@ class MainViewModel @Inject constructor(
     private val deleteFavorite: dagger.Lazy<DeleteFavorite>,
 ) : ViewModel() {
 
-    private val _allUsers = MutableStateFlow<List<User>>(emptyList())
+    private val _allUsers = MutableStateFlow<List<UserModel>>(emptyList())
     val allUsers get() = _allUsers.asStateFlow()
     fun getAllUsers() = viewModelScope.launch(Dispatchers.IO) {
         _allUsers.value = getAllUsers.invoke()
     }
 
-    private val _user = MutableStateFlow<User?>(null)
+    private val _user = MutableStateFlow<UserModel?>(null)
     val user get() = _user.asStateFlow()
     fun getUser(userId: Int) = viewModelScope.launch(Dispatchers.IO) {
         _user.value = getUser.get().invoke(userId)
     }
 
-    private val _userFavorites = MutableStateFlow<List<Favorite>>(emptyList())
+    private val _userFavorites = MutableStateFlow<List<FavoriteModel>>(emptyList())
     val userFavorites get() = _userFavorites.asStateFlow()
     fun getUserFavorites(userId: Int) = viewModelScope.launch(Dispatchers.IO) {
         _userFavorites.value = getUserFavorites.get().invoke(userId)
     }
 
-    private val _userFavoriteFoods = MutableStateFlow<List<Food>>(emptyList())
+    private val _userFavoriteFoods = MutableStateFlow<List<FoodModel>>(emptyList())
     val userFavoriteFoods get() = _userFavoriteFoods.asStateFlow()
     fun getUserFavoriteFoods(foodIds: List<Int>) = viewModelScope.launch(Dispatchers.IO) {
         _userFavoriteFoods.value = getUserFavoriteFoods.get().invoke(foodIds)
     }
 
-    private val _allFoods = MutableStateFlow<List<Food>>(emptyList())
+    private val _allFoods = MutableStateFlow<List<FoodModel>>(emptyList())
     val allFoods get() = _allUsers.asStateFlow()
     fun getAllFoods() = viewModelScope.launch(Dispatchers.IO) {
         _allFoods.value = getAllFoods.invoke()
     }
 
-    fun deleteUser(user: User) = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteUser(user: UserModel) = viewModelScope.launch(Dispatchers.IO) {
         deleteUser.get().invoke(user)
     }
 
-    fun deleteFood(food: Food) = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteFood(food: FoodModel) = viewModelScope.launch(Dispatchers.IO) {
         deleteFood.get().invoke(food)
     }
 
-    fun addFavorite(favorite: Favorite) = viewModelScope.launch(Dispatchers.IO) {
+    fun addFavorite(favorite: FavoriteModel) = viewModelScope.launch(Dispatchers.IO) {
         addFavorite.get().invoke(favorite)
     }
 
-    fun deleteFavorite(favorite: Favorite) = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteFavorite(favorite: FavoriteModel) = viewModelScope.launch(Dispatchers.IO) {
         deleteFavorite.get().invoke(favorite)
     }
 

@@ -1,15 +1,15 @@
 package com.sali.anikfood.domain.repo
 
-import com.sali.anikfood.data.entity.Food
+import com.sali.anikfood.domain.model.FoodModel
 
 interface FoodRepo {
 
-    suspend fun getAllFoods(): List<Food>
+    suspend fun getAllFoods(): List<FoodModel>
 
-    suspend fun getUserFavoriteFoods(foodIds: List<Int>): List<Food>
+    suspend fun getUserFavoriteFoods(foodIds: List<Int>): List<FoodModel>
 
-    suspend fun addFood(food: Food)
+    suspend fun addFood(foodModel: FoodModel)
 
-    suspend fun deleteFood(food: Food)
+    suspend fun deleteFood(foodModel: FoodModel)
 
 }

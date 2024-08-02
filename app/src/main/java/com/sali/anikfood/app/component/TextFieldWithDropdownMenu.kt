@@ -23,10 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sali.anikfood.R
 import com.sali.anikfood.data.entity.User
+import com.sali.anikfood.domain.model.UserModel
 
 @Composable
 fun TextFieldWithDropdownMenu(
-    listItems: List<User>,
+    listItems: List<UserModel>,
     onMenuItemClick: (Int) -> Unit
 ) {
     var selectedItem by remember { mutableStateOf("") }
