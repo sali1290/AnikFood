@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
@@ -28,11 +30,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.sali.anikfood.R
 import com.sali.anikfood.app.component.CustomFloatingActionButton
-import com.sali.anikfood.app.component.FoodList
+import com.sali.anikfood.app.component.FoodItem
 import com.sali.anikfood.app.component.FoodType
 import com.sali.anikfood.app.component.Screen
 import com.sali.anikfood.app.component.TextFieldWithDropdownMenu
 import com.sali.anikfood.app.viewmodel.MainViewModel
+import com.sali.anikfood.domain.model.FavoriteModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -42,12 +45,14 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
     val allUsersState by mainViewModel.allUsers.collectAsStateWithLifecycle()
     val foodState by mainViewModel.allFoods.collectAsStateWithLifecycle()
     val userState by mainViewModel.user.collectAsStateWithLifecycle()
-    val userFavorites by mainViewModel.userFavoriteFoods.collectAsStateWithLifecycle()
+    val userFavoritesState by mainViewModel.userFavorites.collectAsStateWithLifecycle()
+    val userFavoriteFoodsState by mainViewModel.userFavoriteFoods.collectAsStateWithLifecycle()
     LaunchedEffect(key1 = Unit) {
-        mainViewModel.getAllUsers()
-        mainViewModel.getAllFoods()
+        mainViewModel.apply {
+            getAllUsers()
+            getAllFoods()
+        }
     }
-
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
 
@@ -62,7 +67,11 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
             TextFieldWithDropdownMenu(
                 listItems = allUsersState
             ) { userId ->
-                mainViewModel.getUser(userId)
+                mainViewModel.apply {
+                    getUser(userId)
+                    getUserFavorites(userId)
+                    getUserFavoriteFoods(userFavoritesState.map { it.favoriteId })
+                }
             }
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -93,44 +102,70 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
             }
 
             HorizontalPager(state = pagerState) { page ->
-                when (page) {
-                    0 -> {
-                        if (userState == null) {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(text = stringResource(R.string.please_choose_a_user))
-                            }
-                        } else {
-                            FoodList(foodList = foodState) {
-                                mainViewModel.deleteFood(it)
-                            }
-                        }
+                when {
+                    userState == null -> {
+                        ListError(text = stringResource(R.string.please_choose_a_user))
                     }
 
-                    1 -> {
-                        LaunchedEffect(key1 = Unit) {
-                            mainViewModel.getUserFavorites(userState?.userId ?: 0)
-                        }
-                        if (userState == null) {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(text = stringResource(R.string.please_choose_a_user))
+                    foodState.isEmpty() -> {
+                        ListError(text = stringResource(R.string.please_insert_some_foods_to_start))
+                    }
+
+                    else -> {
+                        when (page) {
+                            0 -> {
+                                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                                    items(foodState) { item ->
+                                        FoodItem(
+                                            name = item.foodName,
+                                            onLikeClick = {
+                                                mainViewModel.addFavorite(
+                                                    FavoriteModel(
+                                                        0,
+                                                        userState?.userId!!,
+                                                        foodId = item.foodId
+                                                    )
+                                                )
+                                            },
+                                            onDeleteClick = {
+                                                mainViewModel.deleteFood(item)
+                                            })
+                                    }
+                                }
                             }
-                        } else {
-                            FoodList(foodList = userFavorites) {
-                                mainViewModel.deleteFood(it)
+
+                            1 -> {
+                                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                                    items(userFavoriteFoodsState) { item ->
+                                        FoodItem(
+                                            name = item.foodName,
+                                            onLikeClick = {
+                                                mainViewModel.deleteFavorite(
+                                                    FavoriteModel(
+                                                        0,
+                                                        userState?.userId!!,
+                                                        foodId = item.foodId
+                                                    )
+                                                )
+                                            },
+                                            onDeleteClick = { mainViewModel.deleteFood(item) })
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-
         }
-
     }
+}
 
+@Composable
+private fun ListError(text: String) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = text)
+    }
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.sali.anikfood.R
 
 @Composable
-fun FoodItem(name: String, onDeleteClick: () -> Unit) {
+fun FoodItem(name: String, onLikeClick: () -> Unit, onDeleteClick: () -> Unit) {
 
     Card(
         modifier = Modifier
@@ -44,13 +45,23 @@ fun FoodItem(name: String, onDeleteClick: () -> Unit) {
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(text = name, fontSize = 18.sp)
             }
-            Image(
-                modifier = Modifier
-                    .weight(0.1f)
-                    .clickable { onDeleteClick.invoke() },
-                imageVector = Icons.Default.Delete,
-                contentDescription = stringResource(R.string.delete)
-            )
+            Row(modifier = Modifier.weight(0.2f)) {
+                Image(
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .clickable { onLikeClick.invoke() },
+                    imageVector = Icons.Default.FavoriteBorder,
+                    contentDescription = stringResource(R.string.liked)
+                )
+                Spacer(modifier = Modifier.width(5.dp))
+                Image(
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .clickable { onDeleteClick.invoke() },
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.delete)
+                )
+            }
         }
     }
 
