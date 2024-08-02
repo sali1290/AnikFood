@@ -53,7 +53,7 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
             getAllFoods()
         }
     }
-    LaunchedEffect(key1 = userFavoritesState.isNotEmpty()) {
+    LaunchedEffect(key1 = userFavoritesState) {
         mainViewModel.getUserFavoriteFoods(userFavoritesState.map { it.foodId })
     }
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
@@ -124,6 +124,7 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
                                             isFavorite = userFavoriteFoodsState.contains(item),
                                             onLikeClick = {
                                                 mainViewModel.addFavorite(
+                                                    userState!!.userId,
                                                     FavoriteModel(
                                                         favoriteId = 0,
                                                         userId = userState?.userId!!,
