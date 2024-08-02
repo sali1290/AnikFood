@@ -1,5 +1,6 @@
 package com.sali.anikfood.app.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sali.anikfood.R
@@ -19,7 +21,7 @@ import com.sali.anikfood.app.viewmodel.AddDataViewModel
 @Composable
 fun AddDataScreen(addDataViewModel: AddDataViewModel = hiltViewModel()) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
+        val context = LocalContext.current
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -32,7 +34,9 @@ fun AddDataScreen(addDataViewModel: AddDataViewModel = hiltViewModel()) {
                 text = userName,
                 onTextChange = { userName = it }
             ) {
+                Toast.makeText(context, "User added successfully", Toast.LENGTH_SHORT).show()
                 addDataViewModel.addUser(userName)
+                userName = ""
             }
 
             var foodName by remember { mutableStateOf("") }
@@ -42,7 +46,9 @@ fun AddDataScreen(addDataViewModel: AddDataViewModel = hiltViewModel()) {
                 text = foodName,
                 onTextChange = { foodName = it }
             ) {
+                Toast.makeText(context, "Food added successfully", Toast.LENGTH_SHORT).show()
                 addDataViewModel.addFood(foodName)
+                foodName = ""
             }
         }
 
