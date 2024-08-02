@@ -20,7 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -41,7 +44,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hiltViewModel()) {
-
+    var state by remember { mutableIntStateOf(0) }
     val allUsersState by mainViewModel.allUsers.collectAsStateWithLifecycle()
     val foodState by mainViewModel.allFoods.collectAsStateWithLifecycle()
     val userState by mainViewModel.user.collectAsStateWithLifecycle()
@@ -70,6 +73,7 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
             TextFieldWithDropdownMenu(
                 listItems = allUsersState
             ) { userId ->
+                state = 1
                 mainViewModel.apply {
                     getUser(userId)
                     getUserFavorites(userId)
@@ -106,7 +110,7 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
 
             HorizontalPager(state = pagerState) { page ->
                 when {
-                    userState == null -> {
+                    userState == null || state == 0 -> {
                         ListError(text = stringResource(R.string.please_choose_a_user))
                     }
 
