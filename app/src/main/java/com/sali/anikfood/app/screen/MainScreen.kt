@@ -123,14 +123,21 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
                                             name = item.foodName,
                                             isFavorite = userFavoriteFoodsState.contains(item),
                                             onLikeClick = {
-                                                mainViewModel.addFavorite(
-                                                    userState!!.userId,
-                                                    FavoriteModel(
-                                                        favoriteId = 0,
-                                                        userId = userState?.userId!!,
+                                                if (!userFavoriteFoodsState.contains(item)) {
+                                                    mainViewModel.addFavorite(
+                                                        userState!!.userId,
+                                                        FavoriteModel(
+                                                            favoriteId = 0,
+                                                            userId = userState?.userId!!,
+                                                            foodId = item.foodId
+                                                        )
+                                                    )
+                                                } else {
+                                                    mainViewModel.deleteFavorite(
+                                                        userState?.userId!!,
                                                         foodId = item.foodId
                                                     )
-                                                )
+                                                }
                                             },
                                             onDeleteClick = {
                                                 mainViewModel.deleteFood(item)

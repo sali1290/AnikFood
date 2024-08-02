@@ -70,6 +70,7 @@ class MainViewModel @Inject constructor(
 
     fun deleteFood(food: FoodModel) = viewModelScope.launch(Dispatchers.IO) {
         deleteFood.get().invoke(food)
+        getAllFoods()
     }
 
     fun addFavorite(userId: Int, favorite: FavoriteModel) = viewModelScope.launch(Dispatchers.IO) {
