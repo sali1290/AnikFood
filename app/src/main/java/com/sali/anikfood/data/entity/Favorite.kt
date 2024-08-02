@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "favorites", foreignKeys = [
+        // One-to-many relationship between User and Favorite
         ForeignKey(
             entity = User::class,
             parentColumns = arrayOf("user_id"),
@@ -14,6 +15,7 @@ import androidx.room.PrimaryKey
             onUpdate = ForeignKey.CASCADE,
             onDelete = ForeignKey.CASCADE
         ),
+        // Many-to-many to one relationship between Food and Favorite
         ForeignKey(
             entity = Food::class,
             parentColumns = arrayOf("food_id"),

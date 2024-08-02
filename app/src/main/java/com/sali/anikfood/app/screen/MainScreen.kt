@@ -44,6 +44,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hiltViewModel()) {
+    // State show user is selected or not, 0 -> not selected, 1 -> selected
     var state by remember { mutableIntStateOf(0) }
     val allUsersState by mainViewModel.allUsers.collectAsStateWithLifecycle()
     val foodState by mainViewModel.allFoods.collectAsStateWithLifecycle()
@@ -110,16 +111,19 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
 
             HorizontalPager(state = pagerState) { page ->
                 when {
+                    // Show error message if user is not selected
                     userState == null || state == 0 -> {
-                        ListError(text = stringResource(R.string.please_choose_a_user))
+                        Error(text = stringResource(R.string.please_choose_a_user))
                     }
 
+                    // Show error message if there are no foods in the database
                     foodState.isEmpty() -> {
-                        ListError(text = stringResource(R.string.please_insert_some_foods_to_start))
+                        Error(text = stringResource(R.string.please_insert_some_foods_to_start))
                     }
 
                     else -> {
                         when (page) {
+                            // Show all foods
                             0 -> {
                                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                                     items(foodState) { item ->
@@ -151,6 +155,7 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
                             }
 
                             1 -> {
+                                // Show favorite foods
                                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                                     items(userFavoriteFoodsState) { item ->
                                         FoodItem(
@@ -175,7 +180,7 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
 }
 
 @Composable
-private fun ListError(text: String) {
+private fun Error(text: String) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
