@@ -1,5 +1,6 @@
 package com.sali.anikfood.data.repoimpl
 
+import android.util.Log
 import com.sali.anikfood.data.mapper.FavoriteMapper
 import com.sali.anikfood.data.service.dao.FavoriteDao
 import com.sali.anikfood.domain.model.FavoriteModel
@@ -13,18 +14,19 @@ class FavoriteRepoImpl @Inject constructor(
 
     override suspend fun getUserFavorites(userId: Int): List<FavoriteModel> {
         return favoriteDao.getUserFavorites(userId).map {
+            Log.d("AnikFood", it.toString())
             mapper.convertFavoriteToFavoriteModel(it)
         }
     }
 
     override suspend fun addFavorite(favoriteModel: FavoriteModel) {
         val favorite = mapper.convertFavoriteModelToFavorite(favoriteModel)
+        Log.d("AnikFood", "added: $favorite")
         favoriteDao.addFavorite(favorite)
     }
 
-    override suspend fun deleteFavorite(favoriteModel: FavoriteModel) {
-        val favorite = mapper.convertFavoriteModelToFavorite(favoriteModel)
-        favoriteDao.deleteFavorite(favorite)
+    override suspend fun deleteFavorite(userId: Int, foodId: Int) {
+        favoriteDao.deleteFavorite(userId, foodId)
     }
 
 }

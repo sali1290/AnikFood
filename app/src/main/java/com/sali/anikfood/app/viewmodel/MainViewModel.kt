@@ -76,8 +76,8 @@ class MainViewModel @Inject constructor(
         addFavorite.get().invoke(favorite)
     }
 
-    fun deleteFavorite(favorite: FavoriteModel) = viewModelScope.launch(Dispatchers.IO) {
-        deleteFavorite.get().invoke(favorite)
+    fun deleteFavorite(userId: Int, foodId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        deleteFavorite.get().invoke(userId, foodId)
     }
 
 }

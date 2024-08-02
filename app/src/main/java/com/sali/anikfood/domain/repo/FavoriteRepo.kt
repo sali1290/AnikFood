@@ -8,6 +8,6 @@ interface FavoriteRepo {
 
     suspend fun addFavorite(favoriteModel: FavoriteModel)
 
-    suspend fun deleteFavorite(favoriteModel: FavoriteModel)
+    suspend fun deleteFavorite(userId: Int, foodId: Int)
 
 }

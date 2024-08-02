@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
@@ -23,7 +24,12 @@ import androidx.compose.ui.unit.sp
 import com.sali.anikfood.R
 
 @Composable
-fun FoodItem(name: String, onLikeClick: () -> Unit, onDeleteClick: () -> Unit) {
+fun FoodItem(
+    name: String,
+    isFavorite: Boolean,
+    onLikeClick: () -> Unit,
+    onDeleteClick: () -> Unit
+) {
 
     Card(
         modifier = Modifier
@@ -50,7 +56,7 @@ fun FoodItem(name: String, onLikeClick: () -> Unit, onDeleteClick: () -> Unit) {
                     modifier = Modifier
                         .weight(0.5f)
                         .clickable { onLikeClick.invoke() },
-                    imageVector = Icons.Default.FavoriteBorder,
+                    imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                     contentDescription = stringResource(R.string.liked)
                 )
                 Spacer(modifier = Modifier.width(5.dp))

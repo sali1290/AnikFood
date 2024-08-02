@@ -53,6 +53,9 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
             getAllFoods()
         }
     }
+    LaunchedEffect(key1 = userFavoritesState.isNotEmpty()) {
+        mainViewModel.getUserFavoriteFoods(userFavoritesState.map { it.foodId })
+    }
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
 
@@ -118,11 +121,12 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
                                     items(foodState) { item ->
                                         FoodItem(
                                             name = item.foodName,
+                                            isFavorite = userFavoriteFoodsState.contains(item),
                                             onLikeClick = {
                                                 mainViewModel.addFavorite(
                                                     FavoriteModel(
-                                                        0,
-                                                        userState?.userId!!,
+                                                        favoriteId = 0,
+                                                        userId = userState?.userId!!,
                                                         foodId = item.foodId
                                                     )
                                                 )
@@ -139,13 +143,11 @@ fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hilt
                                     items(userFavoriteFoodsState) { item ->
                                         FoodItem(
                                             name = item.foodName,
+                                            isFavorite = true,
                                             onLikeClick = {
                                                 mainViewModel.deleteFavorite(
-                                                    FavoriteModel(
-                                                        0,
-                                                        userState?.userId!!,
-                                                        foodId = item.foodId
-                                                    )
+                                                    userState?.userId!!,
+                                                    foodId = item.foodId
                                                 )
                                             },
                                             onDeleteClick = { mainViewModel.deleteFood(item) })
