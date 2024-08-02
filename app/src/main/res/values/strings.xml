@@ -14,4 +14,6 @@
     <string name="please_insert_some_foods_to_start">Please insert some foods to start</string>
     <string name="please_choose_a_user">Please choose a user</string>
     <string name="liked">Liked</string>
+    <string name="user_added_successfully">User added successfully</string>
+    <string name="food_added_successfully">Food added successfully</string>
 </resources>

@@ -34,7 +34,8 @@ fun AddDataScreen(addDataViewModel: AddDataViewModel = hiltViewModel()) {
                 text = userName,
                 onTextChange = { userName = it }
             ) {
-                Toast.makeText(context, "User added successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,
+                    context.getString(R.string.user_added_successfully), Toast.LENGTH_SHORT).show()
                 addDataViewModel.addUser(userName)
                 userName = ""
             }
@@ -46,7 +47,8 @@ fun AddDataScreen(addDataViewModel: AddDataViewModel = hiltViewModel()) {
                 text = foodName,
                 onTextChange = { foodName = it }
             ) {
-                Toast.makeText(context, "Food added successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,
+                    context.getString(R.string.food_added_successfully), Toast.LENGTH_SHORT).show()
                 addDataViewModel.addFood(foodName)
                 foodName = ""
             }
